@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================================
+   FORM ELEMANLARI & SAFARI FIX
+   ========================================= */
+
+/* 1. Tüm Inputları Zorla Beyaz Yap (Dark Mode Override) */
+input,
+textarea,
+select {
+  color: #171717 !important;
+  background-color: #ffffff !important;
+}
+
+/* 2. React DatePicker Konteyner Yapısı */
+/* Bu yapı Safari'nin inputu sıkıştırmasını engeller */
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+  display: block;
+  width: 100%;
+}
+
+/* 3. DatePicker Input Stili - SAFARI ÖZEL AYARI */
+/* .react-datepicker-wrapper içindeki input'u hedef alıyoruz */
+.react-datepicker-wrapper input {
+  /* Safari'nin yuvarlak buton stilini (User Agent Style) sıfırla */
+  -webkit-appearance: none !important;
+  appearance: none !important;
+
+  /* Boyutlandırma ve Hizalama */
+  width: 100% !important;
+  padding: 0.5rem 0.75rem !important; /* Tailwind p-2 karşılığı */
+  font-size: 1rem !important; /* Mobilde zoom'u engeller */
+  line-height: 1.5 !important;
+
+  /* Kenarlık ve Renkler */
+  border: 1px solid #d1d5db !important; /* gray-300 */
+  border-radius: 0.375rem !important; /* rounded-md */
+  background-color: #ffffff !important;
+  color: #171717 !important;
+  outline: none !important;
+}
+
+/* 4. Focus Durumu (Turuncu Çerçeve) */
+.react-datepicker-wrapper input:focus {
+  border-color: #f97316 !important; /* orange-500 */
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2) !important;
+}
+
+/* 5. Native Date İkonlarını Gizle (Çakışmayı Önlemek İçin) */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+  -webkit-appearance: none;
+}
